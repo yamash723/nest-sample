@@ -1,0 +1,2 @@
+# Ignore container persistent data
+.devcontainer/.data

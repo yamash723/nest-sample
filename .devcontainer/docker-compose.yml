@@ -1,0 +1,42 @@
+#-------------------------------------------------------------------------------------------------------------
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License. See https://go.microsoft.com/fwlink/?linkid=2090316 for license information.
+#-------------------------------------------------------------------------------------------------------------
+
+version: '3'
+services:
+  web:
+    # Uncomment the next line to use a non-root user. On Linux, this will prevent
+    # new files getting created as root, but you may need to update the USER_UID
+    # and USER_GID in .devcontainer/Dockerfile to match your user if not 1000.
+    # user: node
+
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    
+    volumes:
+      - ..:/workspace
+      
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+    links:
+      - db
+
+  db:
+    image: mysql
+    command: --character-set-server=utf8 --collation-server=utf8_unicode_ci --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    ports: 
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: nestjs
+      MYSQL_USER: nestjs
+      MYSQL_PASSWORD: nestjs
+      MYSQL_ROOT_PASSWORD: password
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./.data/mysql/data:/var/lib/mysql
+      - ./.data/mysql/sql:/docker-entrypoint-initdb.d
+ 
