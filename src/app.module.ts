@@ -1,16 +1,18 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
-import { UsersResolver } from './apps/users/users.resolver';
-import { UsersModule } from './apps/users/users.module';
+import { UsersResolver } from './apps/resolvers/users.resolver';
+import { UsersModule } from './apps/modules/users.module';
+import { UsersService } from './apps/services/users.service';
+import { UserEntityDto } from './db/entities/users.entity';
 
 @Module({
   imports: [
-    UsersModule,
+    TypeOrmModule.forRoot(),
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
     }),
     UsersModule,
   ],
-  providers: [UsersResolver],
 })
-export class AppModule {}
+export class AppModule { }

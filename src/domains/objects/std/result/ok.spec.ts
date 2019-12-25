@@ -1,9 +1,9 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { Ok } from './ok';
 import { IsNone } from '../option';
+import { ApplicationError } from '../error';
 
 describe('Ok', () => {
-    let ok: Ok<string, string>;
+    let ok: Ok<string, ApplicationError>;
     const testValue = 'test word';
 
     beforeEach(async () => {

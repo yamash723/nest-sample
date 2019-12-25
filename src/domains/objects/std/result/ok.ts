@@ -1,7 +1,8 @@
 import { Option, Some, IsNone } from 'src/domains/objects/std/option';
 import { IResult } from '.';
+import { IError } from '../error';
 
-export class Ok<T, E> implements IResult<T, E> {
+export class Ok<T, E extends IError> implements IResult<T, E> {
     private readonly value: T;
 
     constructor(t: T) {

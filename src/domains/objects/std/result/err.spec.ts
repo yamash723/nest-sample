@@ -1,10 +1,10 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { Err } from './err';
 import { IsNone } from '../option';
+import { ApplicationError } from '../error';
 
 describe('Err', () => {
-    let err: Err<string, string>;
-    const testValue = 'test word';
+    let err: Err<string, ApplicationError>;
+    const testValue = new ApplicationError('errorMessage');
 
     beforeEach(async () => {
         err = new Err(testValue);
@@ -23,6 +23,6 @@ describe('Err', () => {
     });
 
     it('err() should return value', () => {
-        expect(err.err().value).toBe(testValue);
+        expect(err.err().value).toStrictEqual(testValue);
     });
 });
